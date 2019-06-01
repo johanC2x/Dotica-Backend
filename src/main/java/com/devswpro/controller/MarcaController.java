@@ -27,8 +27,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.devswpro.exception.ModeloNotFoundException;
 import com.devswpro.model.Marca;
 import com.devswpro.service.IMarcaService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/marcas")
 public class MarcaController {

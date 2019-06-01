@@ -27,8 +27,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.devswpro.exception.ModeloNotFoundException;
 import com.devswpro.model.TipoProducto;
 import com.devswpro.service.ITipoProductoService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/tipoProductos")
 public class TipoProductoController {

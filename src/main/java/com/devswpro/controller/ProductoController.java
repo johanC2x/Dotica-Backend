@@ -30,10 +30,11 @@ import com.devswpro.dto.ProductoListaInsumoDTO;
 import com.devswpro.exception.ModeloNotFoundException;
 import com.devswpro.model.Producto;
 import com.devswpro.service.IProductoService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/productos")
-
 public class ProductoController {
 	
 	@Autowired 

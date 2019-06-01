@@ -28,7 +28,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.devswpro.exception.ModeloNotFoundException;
 import com.devswpro.model.PersonaNatural;
 import com.devswpro.service.IPersonaNaturalService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/personasNaturales")
 public class PersonaNaturalController {

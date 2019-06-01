@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.devswpro.model.ProductoInsumo;
 import com.devswpro.service.IProductoInsumoService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/productoinsumos")
 public class ProductoInsumoController {

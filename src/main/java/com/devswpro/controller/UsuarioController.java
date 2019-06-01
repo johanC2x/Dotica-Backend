@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.devswpro.dto.UsuarioDTO;
 import com.devswpro.model.Usuario;
 import com.devswpro.service.impl.UsuarioServiceImpl;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UsuarioController {
