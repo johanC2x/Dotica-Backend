@@ -83,6 +83,11 @@
 		    <version>2.3.4.RELEASE</version>
 		</dependency>
 		-->
+		<dependency>
+		    <groupId>com.google.cloud.sql</groupId>
+		    <artifactId>postgres-socket-factory</artifactId>
+		    <version>1.0.13</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -100,7 +105,7 @@
 			    	<version>1</version>
 					<deploy.projectId>my-project-1498061024639</deploy.projectId>
 					<enableJarClasses>false</enableJarClasses>
-         			<port>8080</port>
+         			<!--<port>8080</port>-->
 				</configuration>
 			</plugin>
 		</plugins>
