@@ -14,6 +14,7 @@ import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +37,12 @@ public class MarcaController {
 
 	@Autowired 
 	private IMarcaService service;
+	
+	@PreAuthorize("@restAuthService.hasAccess('index_marcas')")
+	@GetMapping(value="/index",produces=MediaType.APPLICATION_JSON_VALUE)
+	public Boolean  index(){
+		return true;
+	}
 	
 	@GetMapping(produces="application/json")
 	public ResponseEntity<List<Marca>>  listar(){

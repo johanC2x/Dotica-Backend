@@ -1,12 +1,10 @@
 package com.devswpro.dao;
 
-import java.io.Serializable;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.devswpro.model.Usuario;
 
-public interface IUsuarioDAO extends JpaRepository<Usuario,Serializable> {
+public interface IUsuarioDAO extends JpaRepository<Usuario,Integer> {
 	
 	/*
 	@Query(value = "SELECT * FROM usuario u where u.nombre = :username and u.clave = :password", nativeQuery = true)
@@ -14,5 +12,7 @@ public interface IUsuarioDAO extends JpaRepository<Usuario,Serializable> {
 	*/
 	
 	Usuario findByUsernameAndPassword(String username, String password);
+	
+	Usuario findOneByUsername(String username);	
 	
 }
