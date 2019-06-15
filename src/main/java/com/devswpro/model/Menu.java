@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="menu")
@@ -23,6 +24,15 @@ public class Menu {
 	private String icono;
 	@Column(name="url", length=50)
 	private String url;
+	@Column(name="id_menu_padre", nullable = true)
+	private Integer idMenuPadre;
+	@Column(name="enable", columnDefinition="integer default 1")
+	private Integer enable;
+	
+	@Transient
+	private List<SubMenu> subMenu;
+	@Transient
+	private Integer show;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "menu_rol", joinColumns = @JoinColumn(name = "id_menu", referencedColumnName = "idMenu"), inverseJoinColumns = @JoinColumn(name = "id_rol", referencedColumnName = "idRol"))
@@ -58,5 +68,22 @@ public class Menu {
 	public void setRoles(List<Rol> roles) {
 		this.roles = roles;
 	}
-	
+	public Integer getIdMenuPadre() {
+		return idMenuPadre;
+	}
+	public void setIdMenuPadre(Integer idMenuPadre) {
+		this.idMenuPadre = idMenuPadre;
+	}
+	public List<SubMenu> getSubMenu() {
+		return subMenu;
+	}
+	public void setSubMenu(List<SubMenu> subMenu) {
+		this.subMenu = subMenu;
+	}
+	public Integer getShow() {
+		return show;
+	}
+	public void setShow(Integer show) {
+		this.show = show;
+	}
 }
