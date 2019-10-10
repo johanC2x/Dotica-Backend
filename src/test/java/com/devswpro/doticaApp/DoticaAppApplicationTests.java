@@ -35,23 +35,23 @@ public class DoticaAppApplicationTests {
 	}
 	*/
 	
+	/*
 	@Test
 	public void matches() {
         System.out.println(BCrypt.checkpw("123", "$2a$10$rrUasiaeKDQc/3Hncyq3NeFkrWfkNrvFpswDsWiYZoQxwHo4UV8g."));
     }
+	*/
 	
-	/*
 	@Test
 	public void crearUsuario() {
 		Usuario us = new Usuario();
 		us.setIdUsuario(1);
-		us.setUsername("johanc");
+		us.setUsername("admin");
 		us.setPassword(bcrypt.encode("123"));
 		us.setEnabled(true);
 		Usuario retorno = dao.save(us);		
 		
 		assertTrue(retorno.getPassword().equalsIgnoreCase(us.getPassword()));
 	}
-	*/
 
 }

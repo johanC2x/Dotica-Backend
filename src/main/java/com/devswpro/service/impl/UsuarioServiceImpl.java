@@ -1,5 +1,8 @@
 package com.devswpro.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +21,38 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	public Usuario login(UsuarioDTO usuarioDTO) {
 		return dao.findByUsernameAndPassword(usuarioDTO.getUsername(), usuarioDTO.getPassword());
 	}
+
+	@Override
+	public Usuario registrar(Usuario obj) {
+		return dao.save(obj);
+	}
+
+	@Override
+	public Usuario modificar(Usuario obj) {
+		return dao.save(obj);
+	}
+
+	@Override
+	public List<Usuario> listar() {
+		return dao.findAll();
+	}
+
+	@Override
+	public Usuario leer(Integer id) {
+		Optional<Usuario> op = dao.findById(id);
+		return op.isPresent() ? op.get() : new Usuario();
+	}
+	
+	public Usuario leerPorUsuario(String userName){
+		Usuario op = dao.findOneByUsername(userName);
+		return op != null ? op : new Usuario();
+	}
+
+	@Override
+	public void eliminar(Integer id) {
+		dao.deleteById(id);
+	}
+	
+	
 	
 }

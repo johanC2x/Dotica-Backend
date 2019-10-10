@@ -1,6 +1,8 @@
 package com.devswpro.service.impl;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +11,7 @@ import com.devswpro.dao.IProductoInsumoDAO;
 import com.devswpro.dto.FiltroProductoDTO;
 import com.devswpro.dto.ProductoListaInsumoDTO;
 import com.devswpro.model.Producto;
+import com.devswpro.model.TipoProducto;
 import com.devswpro.service.IProductoService;
 
 @Service
@@ -27,8 +30,7 @@ public class ProductoServiceImpl implements IProductoService{
 	
 	@Override
 	public Producto modificar(Producto t) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.save(t);
 	}
 
 	@Override
@@ -38,14 +40,13 @@ public class ProductoServiceImpl implements IProductoService{
 
 	@Override
 	public Producto leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Producto> op = dao.findById(id);
+		return op.isPresent() ? op.get() : new Producto();
 	}
 
 	@Override
 	public void eliminar(Integer id) {
-		// TODO Auto-generated method stub
-		
+		dao.deleteById(id);
 	}
 	
 	@Transactional

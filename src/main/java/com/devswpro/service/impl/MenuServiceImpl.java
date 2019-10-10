@@ -1,7 +1,6 @@
 package com.devswpro.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +56,7 @@ public class MenuServiceImpl implements IMenuService {
 			m.setNombre(String.valueOf(x[2]));
 			m.setUrl(String.valueOf(x[3]));
 			m.setShow(0);
+			m.setIdMenuPadre(Integer.parseInt(String.valueOf(x[5])));
 			List<SubMenu> lista = new ArrayList<SubMenu>();
 			Integer idPadre = Integer.parseInt(String.valueOf(x[0]));
 			dao.listarSubMenuPorUsuario(nombre,idPadre).forEach( y -> {

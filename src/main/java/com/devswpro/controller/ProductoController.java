@@ -48,6 +48,7 @@ public class ProductoController {
 
 	@GetMapping(value="/{id}",produces=MediaType.APPLICATION_JSON_VALUE)
 	public Resource<Producto> listarPorId(@PathVariable("id")Integer id) {
+		System.out.println(id);
 		Producto prod= service.leer(id);
 		if(prod.getIdProducto()==null) {
 			throw new ModeloNotFoundException("ID NO ENCONTRADO: "+ id);
