@@ -46,7 +46,7 @@ public class Producto {
 	@Column (name="costo")
 	private Double costo;
 	
-	@Column (name="costo")
+	@Column (name="stock")
 	private Integer stock;
 
 	public Integer getIdProducto() {
