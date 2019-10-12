@@ -59,6 +59,9 @@ public class Cotizacion {
 	@JoinColumn(name="id_usuario", nullable=false ,foreignKey = @ForeignKey(name="cotizacion_usuario")) 
 	private Usuario usuario;
 	
+	@Column(name="area", nullable=true)
+	private String area;
+	
 	@ManyToMany//(fetch = FetchType.EAGER)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name = "detalle_cotizacion", joinColumns = @JoinColumn(name = "id_cotizacion", referencedColumnName = "idCotizacion"), inverseJoinColumns = @JoinColumn(name = "id_producto", referencedColumnName = "idProducto"))
@@ -143,5 +146,15 @@ public class Cotizacion {
 	public void setData(String data) {
 		this.data = data;
 	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+	
+	
 	
 }

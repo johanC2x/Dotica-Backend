@@ -45,10 +45,11 @@ public class DoticaAppApplicationTests {
 	@Test
 	public void crearUsuario() {
 		Usuario us = new Usuario();
-		us.setIdUsuario(1);
-		us.setUsername("admin");
+		us.setIdUsuario(5);
+		us.setUsername("adma3");
 		us.setPassword(bcrypt.encode("123"));
 		us.setEnabled(true);
+		us.setNombres("ADM AREA 3");
 		Usuario retorno = dao.save(us);		
 		
 		assertTrue(retorno.getPassword().equalsIgnoreCase(us.getPassword()));

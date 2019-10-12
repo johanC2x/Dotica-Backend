@@ -4,7 +4,11 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -42,7 +46,21 @@ public class CotizacionController {
 		List<Cotizacion> lista = service.listar();
 		return new ResponseEntity<List<Cotizacion>>(lista, HttpStatus.OK);
 	}
-
+	
+	@GetMapping(value = "/state", produces = "application/json")
+	public ResponseEntity<List<Cotizacion>> listarPorEstado() {
+		List<Cotizacion> lista = service.listar();
+		lista = lista.stream().filter(coti -> !coti.getEstado().replaceAll(" ","").equals("Aprobado")).collect(Collectors.toList());
+		return new ResponseEntity<List<Cotizacion>>(lista, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/max", produces = "application/json")
+	public ResponseEntity<Cotizacion> obtenerMaxId(){
+		List<Cotizacion> lista = service.listar();
+		Optional<Cotizacion> coti = lista.stream().reduce((a,b) -> a.getIdCotizacion().compareTo(b.getIdCotizacion()) > 0 ? a:b);
+		return new ResponseEntity<Cotizacion>(coti.get(), HttpStatus.OK);
+	}
+	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Resource<Cotizacion> listarPorId(@PathVariable("id") Integer id) {
 		Cotizacion cotizacion = service.leer(id);

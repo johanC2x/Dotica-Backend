@@ -30,7 +30,7 @@ public class CotizacionServiceImpl implements ICotizacionService {
 	public List<Cotizacion> listar() {
 		return dao.findAll();
 	}
-
+	
 	@Override
 	public Cotizacion leer(Integer id) {
 		Optional<Cotizacion> op = dao.findById(id);

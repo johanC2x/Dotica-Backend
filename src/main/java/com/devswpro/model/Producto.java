@@ -42,6 +42,9 @@ public class Producto {
 	@Size(min=3, message="descripcion debe tener un minimo de 3 caracteres")
 	@Column (name="descripcion", length=100)
 	private String descripcion;
+	
+	@Column (name="costo")
+	private Double costo;
 
 	public Integer getIdProducto() {
 		return idProducto;
@@ -82,9 +85,13 @@ public class Producto {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
-	
 
+	public Double getCosto() {
+		return costo;
+	}
 
+	public void setCosto(Double costo) {
+		this.costo = costo;
+	}
 	
 }
