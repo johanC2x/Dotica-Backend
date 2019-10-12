@@ -45,6 +45,9 @@ public class Producto {
 	
 	@Column (name="costo")
 	private Double costo;
+	
+	@Column (name="costo")
+	private Integer stock;
 
 	public Integer getIdProducto() {
 		return idProducto;
@@ -92,6 +95,14 @@ public class Producto {
 
 	public void setCosto(Double costo) {
 		this.costo = costo;
+	}
+
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 	
 }
