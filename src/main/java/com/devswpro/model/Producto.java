@@ -48,6 +48,9 @@ public class Producto {
 	
 	@Column (name="stock")
 	private Integer stock;
+	
+	@Column (name="tipo")
+	private String tipo;
 
 	public Integer getIdProducto() {
 		return idProducto;
@@ -103,6 +106,14 @@ public class Producto {
 
 	public void setStock(Integer stock) {
 		this.stock = stock;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	
 }

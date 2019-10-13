@@ -54,6 +54,41 @@ public class CotizacionController {
 		return new ResponseEntity<List<Cotizacion>>(lista, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/state/requerido", produces = "application/json")
+	public ResponseEntity<List<Cotizacion>> listarPorEstadoRequerido() {
+		List<Cotizacion> lista = service.listar();
+		lista = lista.stream().filter(coti -> !coti.getEstado().replaceAll(" ","").equals("Requerido")).collect(Collectors.toList());
+		return new ResponseEntity<List<Cotizacion>>(lista, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/state/cotizado", produces = "application/json")
+	public ResponseEntity<List<Cotizacion>> listarPorEstadoCotizado() {
+		List<Cotizacion> lista = service.listar();
+		lista = lista.stream().filter(coti -> !coti.getEstado().replaceAll(" ","").equals("Cotizado")).collect(Collectors.toList());
+		return new ResponseEntity<List<Cotizacion>>(lista, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/state/aprobado", produces = "application/json")
+	public ResponseEntity<List<Cotizacion>> listarPorEstadoAprobado() {
+		List<Cotizacion> lista = service.listar();
+		lista = lista.stream().filter(coti -> !coti.getEstado().replaceAll(" ","").equals("Aprobado")).collect(Collectors.toList());
+		return new ResponseEntity<List<Cotizacion>>(lista, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/state/aprobadoa1", produces = "application/json")
+	public ResponseEntity<List<Cotizacion>> listarPorEstadoAprobadoA1() {
+		List<Cotizacion> lista = service.listar();
+		lista = lista.stream().filter(coti -> !coti.getEstado().replaceAll(" ","").equals("AprobadoA1")).collect(Collectors.toList());
+		return new ResponseEntity<List<Cotizacion>>(lista, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/state/aprobadoa2", produces = "application/json")
+	public ResponseEntity<List<Cotizacion>> listarPorEstadoAprobadoA2() {
+		List<Cotizacion> lista = service.listar();
+		lista = lista.stream().filter(coti -> !coti.getEstado().replaceAll(" ","").equals("AprobadoA2")).collect(Collectors.toList());
+		return new ResponseEntity<List<Cotizacion>>(lista, HttpStatus.OK);
+	}
+	
 	@GetMapping(value = "/max", produces = "application/json")
 	public ResponseEntity<Cotizacion> obtenerMaxId(){
 		List<Cotizacion> lista = service.listar();
