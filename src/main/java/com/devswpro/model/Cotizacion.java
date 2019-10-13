@@ -39,6 +39,9 @@ public class Cotizacion {
 	@Column(name="data", nullable=true)
 	private String data;
 	
+	@Column(name="data_coti", nullable=true,columnDefinition="TEXT")
+	private String data_coti;
+	
 	@Column(name="tipo", nullable=false)
 	private String tipo;
 	
@@ -154,7 +157,13 @@ public class Cotizacion {
 	public void setArea(String area) {
 		this.area = area;
 	}
-	
-	
+
+	public String getData_coti() {
+		return data_coti;
+	}
+
+	public void setData_coti(String data_coti) {
+		this.data_coti = data_coti;
+	}
 	
 }
