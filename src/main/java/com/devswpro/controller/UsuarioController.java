@@ -16,6 +16,7 @@ import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +47,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private EmpleadoServiceImpl empleadoService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
 
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> login(@RequestBody UsuarioDTO usuario) {
@@ -96,6 +100,8 @@ public class UsuarioController {
 	
 	@PostMapping(produces="application/json",consumes="application/json")
 	public ResponseEntity<Usuario> registrar(@Valid @RequestBody Usuario usuario) {
+		String passw = bcrypt.encode(usuario.getPassword());
+		usuario.setPassword(passw);
 		Usuario user = usuarioService.registrar(usuario);
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getIdUsuario()).toUri();

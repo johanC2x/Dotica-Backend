@@ -22,7 +22,7 @@ public class Usuario {
 
 	@Column(name = "nombre", nullable = false, unique = true)
 	private String username;
-	
+
 	@Column(name = "nombre_completo", nullable = true)
 	private String nombres;
 
@@ -43,6 +43,18 @@ public class Usuario {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "usuario_sub_recurso", joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "idUsuario"), inverseJoinColumns = @JoinColumn(name = "id_sub_recurso", referencedColumnName = "idSubRecurso"))
 	private List<SubRecurso> subRecursos;
+
+	@Column(name = "edad")
+	private Integer edad;
+
+	@Column(name = "tipo_usuario")
+	private String tipoUsuario;
+
+	@Column(name = "tipo_documento")
+	private String tipoDocumento;
+
+	@Column(name = "nro_documento")
+	private String nroDocumento;
 
 	public Integer getIdUsuario() {
 		return idUsuario;
@@ -99,5 +111,37 @@ public class Usuario {
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
-	
+
+	public Integer getEdad() {
+		return edad;
+	}
+
+	public void setEdad(Integer edad) {
+		this.edad = edad;
+	}
+
+	public String getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
+	public String getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
+	public String getNroDocumento() {
+		return nroDocumento;
+	}
+
+	public void setNroDocumento(String nroDocumento) {
+		this.nroDocumento = nroDocumento;
+	}
+
 }

@@ -1,6 +1,7 @@
 package com.devswpro.model;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -21,6 +22,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name="cotizacion")
@@ -57,6 +60,16 @@ public class Cotizacion {
 	@Column(name = "fecha_modificacion")
     @Temporal(TemporalType.DATE)
     private Calendar fechaModificacion;
+	
+	@Column(name = "modifica_area1")
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date modificaArea1;
+	
+	@Column(name = "modifica_area2")
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date modificaArea2;
 	
 	@ManyToOne
 	@JoinColumn(name="id_usuario", nullable=false ,foreignKey = @ForeignKey(name="cotizacion_usuario")) 
@@ -165,5 +178,21 @@ public class Cotizacion {
 	public void setData_coti(String data_coti) {
 		this.data_coti = data_coti;
 	}
-	
+
+	public Date getModificaArea1() {
+		return modificaArea1;
+	}
+
+	public void setModificaArea1(Date modificaArea1) {
+		this.modificaArea1 = modificaArea1;
+	}
+
+	public Date getModificaArea2() {
+		return modificaArea2;
+	}
+
+	public void setModificaArea2(Date modificaArea2) {
+		this.modificaArea2 = modificaArea2;
+	}
+
 }
