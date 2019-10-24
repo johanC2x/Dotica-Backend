@@ -71,12 +71,20 @@ public class Cotizacion {
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date modificaArea2;
 	
+	@Column(name = "modifica_area3")
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date modificaArea3;
+	
 	@ManyToOne
 	@JoinColumn(name="id_usuario", nullable=false ,foreignKey = @ForeignKey(name="cotizacion_usuario")) 
 	private Usuario usuario;
 	
 	@Column(name="area", nullable=true)
 	private String area;
+	
+	@Column(name="cantidad", nullable=true)
+	private Integer cantidad;
 	
 	@ManyToMany//(fetch = FetchType.EAGER)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -193,6 +201,22 @@ public class Cotizacion {
 
 	public void setModificaArea2(Date modificaArea2) {
 		this.modificaArea2 = modificaArea2;
+	}
+
+	public Date getModificaArea3() {
+		return modificaArea3;
+	}
+
+	public void setModificaArea3(Date modificaArea3) {
+		this.modificaArea3 = modificaArea3;
+	}
+
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
 	}
 
 }

@@ -2,11 +2,13 @@ package com.devswpro.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.devswpro.dao.IMenuDAO;
+import com.devswpro.model.Marca;
 import com.devswpro.model.Menu;
 import com.devswpro.model.SubMenu;
 import com.devswpro.service.IMenuService;
@@ -75,8 +77,8 @@ public class MenuServiceImpl implements IMenuService {
 
 	@Override
 	public Menu leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Menu> op = dao.findById(id);
+		return op.isPresent() ? op.get() : new Menu();
 	}
 	
 }

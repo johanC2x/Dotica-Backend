@@ -86,4 +86,10 @@ public class Menu {
 	public void setShow(Integer show) {
 		this.show = show;
 	}
+	public Integer getEnable() {
+		return enable;
+	}
+	public void setEnable(Integer enable) {
+		this.enable = enable;
+	}	
 }
