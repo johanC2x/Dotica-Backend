@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>DoticaApp</name>
 	<description>Dotica project for Spring Boot</description>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -74,11 +74,11 @@
 	        <artifactId>jaxb-api</artifactId>
 	        <version>2.3.1</version>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.springframework.boot</groupId> -->
-<!-- 		    <artifactId>spring-boot-starter-tomcat</artifactId> -->
-<!-- 		    <scope>provided</scope> -->
-<!-- 		</dependency> -->
+ 		<dependency>
+ 		    <groupId>org.springframework.boot</groupId>
+ 		    <artifactId>spring-boot-starter-tomcat</artifactId>
+ 		    <scope>provided</scope>
+ 		</dependency>
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-security</artifactId>
