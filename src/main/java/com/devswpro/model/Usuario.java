@@ -18,6 +18,7 @@ import javax.persistence.Table;
 public class Usuario {
 
 	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Integer idUsuario;
 
 	@Column(name = "nombre", nullable = false, unique = true)

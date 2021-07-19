@@ -4,10 +4,15 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
+import com.devswpro.dto.AccessDTO;
+import com.devswpro.model.IntAccess;
+import com.devswpro.service.impl.AccessServiceImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +21,10 @@ import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.devswpro.dto.ProductoListaInsumoDTO;
@@ -31,9 +35,6 @@ import com.devswpro.model.Producto;
 import com.devswpro.model.Usuario;
 import com.devswpro.service.impl.EmpleadoServiceImpl;
 import com.devswpro.service.impl.UsuarioServiceImpl;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @CrossOrigin
 @RestController
@@ -50,6 +51,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
+
+	@Autowired
+	private AccessServiceImpl accessService;
 
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> login(@RequestBody UsuarioDTO usuario) {
@@ -107,5 +111,30 @@ public class UsuarioController {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getIdUsuario()).toUri();
 		return ResponseEntity.created(location).build();
 	}
-	
+
+	@GetMapping(value="/access", produces="application/json")
+	public ResponseEntity<List<AccessDTO>> findByUser() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getPrincipal());
+		return new ResponseEntity<>(accessService.findByUser(auth.getPrincipal().toString()), HttpStatus.OK);
+	}
+
+	@PostMapping(value="/access", produces="application/json")
+	public ResponseEntity<IntAccess> save(@Valid @RequestBody IntAccess access) {
+		UUID uuid = UUID.randomUUID();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		access.setCreatedBy(auth.getPrincipal().toString());
+		access.setCreatedDate(LocalDateTime.now());
+		access.setToken(uuid.toString());
+		access.setState(Boolean.TRUE);
+		IntAccess model = accessService.registrar(access);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(model.getIdAccess()).toUri();
+		return ResponseEntity.created(location).build();
+	}
+
+	@DeleteMapping(value="/{id}")
+	public void eliminar(@PathVariable("id") Integer id){
+
+	}
+
 }

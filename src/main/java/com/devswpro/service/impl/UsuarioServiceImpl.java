@@ -3,6 +3,7 @@ package com.devswpro.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import com.devswpro.dao.IAccessDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Autowired
 	private IUsuarioDAO dao;
+
+	@Autowired
+	private IAccessDAO accessDAO;
 
 	@Override
 	public Usuario login(UsuarioDTO usuarioDTO) {
