@@ -115,7 +115,6 @@ public class UsuarioController {
 	@GetMapping(value="/access", produces="application/json")
 	public ResponseEntity<List<AccessDTO>> findByUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(auth.getPrincipal());
 		return new ResponseEntity<>(accessService.findByUser(auth.getPrincipal().toString()), HttpStatus.OK);
 	}
 
@@ -132,9 +131,14 @@ public class UsuarioController {
 		return ResponseEntity.created(location).build();
 	}
 
-	@DeleteMapping(value="/{id}")
+	@DeleteMapping(value="/access/{id}")
 	public void eliminar(@PathVariable("id") Integer id){
-
+		IntAccess model = accessService.leer(id);
+		if (model.getIdAccess() == null) {
+			throw new ModeloNotFoundException("ID NO ENCONTRADO: " + id);
+		} else {
+			accessService.eliminar(id);
+		}
 	}
 
 }

@@ -37,4 +37,7 @@ public class IntAccess {
     @Column(name="STATE", nullable = false)
     private boolean state;
 
+    @Column(name="ID_ACCOUNT_TYPE", nullable = false)
+    private Integer idAccountType;
+
 }

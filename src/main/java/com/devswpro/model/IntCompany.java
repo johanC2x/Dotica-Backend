@@ -13,6 +13,7 @@ public class IntCompany {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name="ID", nullable = false)
     private Integer idCompany;
 
     @Column(name="RUC", nullable = false)

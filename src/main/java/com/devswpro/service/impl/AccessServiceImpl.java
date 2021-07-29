@@ -54,12 +54,12 @@ public class AccessServiceImpl implements IAccessService {
 
     @Override
     public IntAccess leer(Integer id) {
-        return null;
+        return dao.findByIdAccess(id);
     }
 
     @Override
     public void eliminar(Integer id) {
-
+        dao.deleteById(id);
     }
 
     public boolean saveTransaction(String user){
