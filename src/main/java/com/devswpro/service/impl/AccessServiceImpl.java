@@ -2,10 +2,14 @@ package com.devswpro.service.impl;
 
 import com.devswpro.dao.IAccessDAO;
 import com.devswpro.dao.ITransactionDAO;
+import com.devswpro.dao.IUserAccountDAO;
+import com.devswpro.dao.IUsuarioDAO;
 import com.devswpro.dto.AccessDTO;
 import com.devswpro.mapper.AccessMapper;
 import com.devswpro.model.IntAccess;
 import com.devswpro.model.IntTransaction;
+import com.devswpro.model.IntUserAccount;
+import com.devswpro.model.Usuario;
 import com.devswpro.service.IAccessService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,8 @@ public class AccessServiceImpl implements IAccessService {
 
     private final IAccessDAO dao;
     private final ITransactionDAO transactionDAO;
+    private final IUsuarioDAO userDAO;
+    private final IUserAccountDAO userAccountDAO;
 
     @Override
     public List<AccessDTO> findByUser(String user) {
@@ -63,14 +69,15 @@ public class AccessServiceImpl implements IAccessService {
     }
 
     public boolean saveTransaction(String user){
+        IntUserAccount userAccount = userAccountDAO.findByUser_UsernameAndState(user, Boolean.TRUE);
+        Long total = transactionDAO.countByUser(user);
+        if(total >= userAccount.getAccount().getMaxTransaction()){
+            return Boolean.FALSE;
+        }
         IntTransaction transaction = new IntTransaction();
         transaction.setUser(user);
         transaction.setCreatedDate(LocalDateTime.now());
         transactionDAO.save(transaction);
-        Long total = transactionDAO.countByUser(user);
-        if(total > 2){
-            return Boolean.FALSE;
-        }
         return Boolean.TRUE;
     }
 

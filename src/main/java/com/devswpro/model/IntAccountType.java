@@ -4,22 +4,29 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="int_account_type")
 @Getter
 @Setter
-public class AccountType {
+public class IntAccountType {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer idAccountType;
-
+    private Integer id;
     @Column(name="ACCOUNT_TYPE", nullable = false)
     private String accountType;
-
     @Column(name="MAX_TRANSACTION", nullable = false)
     private Integer maxTransaction;
-
     @Column(name="ACCOUNT_KEY", nullable = false)
     private String accountKey;
+    @Column(name="DESCRIPTION", nullable = false)
+    private String description;
+    @OneToMany(
+        fetch = FetchType.LAZY,
+        cascade = CascadeType.ALL,
+        orphanRemoval = true,
+        mappedBy = "account"
+    )
+    private List<IntUserAccount> accounts;
 }

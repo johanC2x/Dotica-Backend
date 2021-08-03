@@ -2,16 +2,7 @@ package com.devswpro.model;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "usuario")
@@ -56,6 +47,14 @@ public class Usuario {
 
 	@Column(name = "nro_documento")
 	private String nroDocumento;
+
+	@OneToMany(
+		fetch = FetchType.LAZY,
+		cascade = CascadeType.ALL,
+		orphanRemoval = true,
+		mappedBy = "user"
+	)
+	private List<IntUserAccount> accounts;
 
 	public Integer getIdUsuario() {
 		return idUsuario;
