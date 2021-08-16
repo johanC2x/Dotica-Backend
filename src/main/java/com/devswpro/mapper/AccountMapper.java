@@ -20,9 +20,12 @@ public class AccountMapper {
                 .maxTransaction(entity.getMaxTransaction())
                 .active(entity.getAccounts().stream()
                         .filter(x -> Objects.nonNull(x.getUser()))
+                        .filter(x -> x.isState())
                         .filter(x -> x.getUser().getUsername().equals(userName))
                         .count() == 1)
                 .description(entity.getDescription())
+                .amount(entity.getAmount())
+                .currency(entity.getCurrency())
                 .build();
     }
 

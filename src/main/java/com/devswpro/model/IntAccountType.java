@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -22,6 +23,10 @@ public class IntAccountType {
     private String accountKey;
     @Column(name="DESCRIPTION", nullable = false)
     private String description;
+    @Column(name="AMOUNT", nullable = false)
+    private BigDecimal amount;
+    @Column(name="CURRENCY", nullable = false)
+    private String currency;
     @OneToMany(
         fetch = FetchType.LAZY,
         cascade = CascadeType.ALL,
