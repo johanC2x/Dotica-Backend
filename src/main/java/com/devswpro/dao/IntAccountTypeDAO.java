@@ -4,7 +4,10 @@ import com.devswpro.model.IntAccountType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 public interface IntAccountTypeDAO extends JpaRepository<IntAccountType, Integer> {
     IntAccountType findByAccountType(String accountType);
@@ -13,4 +16,12 @@ public interface IntAccountTypeDAO extends JpaRepository<IntAccountType, Integer
     @Modifying
     @Query(value = "UPDATE int_user_account SET state = 0 where state = 1;", nativeQuery = true)
     void updateByStatus();
+
+    @Query(value = "SELECT " +
+            "T.id,T.account_key,T.account_type,T.max_transaction,T.description,T.amount,T.currency, " +
+            "(SELECT COUNT(*) FROM int_user_account ACC " +
+            "INNER JOIN usuario U ON U.id_usuario = ACC.id_usuario " +
+            "WHERE ACC.id_account = T.id AND U.nombre_completo = :userName AND ACC.state = 1) AS state " +
+            "FROM int_account_type T", nativeQuery = true)
+    List<IntAccountType> getAll(@Param("userName")String userName);
 }

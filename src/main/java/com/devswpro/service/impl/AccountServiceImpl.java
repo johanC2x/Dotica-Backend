@@ -32,7 +32,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public TransactionDTO getAll() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        List<IntAccountType> list = dao.findAll();
+        List<IntAccountType> list = dao.getAll(auth.getPrincipal().toString());
         Long totalTrans = transactionDAO.countByUser(auth.getPrincipal().toString());
         return TransactionDTO.builder()
                 .totalTransaction(totalTrans)

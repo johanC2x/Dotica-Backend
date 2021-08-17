@@ -34,4 +34,7 @@ public class IntAccountType {
         mappedBy = "account"
     )
     private List<IntUserAccount> accounts;
+
+    @Column(name="STATE", nullable = false)
+    private Integer state;
 }
