@@ -1,9 +1,11 @@
 package com.devswpro.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import com.devswpro.dao.IAccessDAO;
+import com.devswpro.dao.IUserAccountDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	@Autowired
 	private IAccessDAO accessDAO;
 
+	@Autowired
+	private IUserAccountDAO userAccountDAO;
+
 	@Override
 	public Usuario login(UsuarioDTO usuarioDTO) {
 		return dao.findByUsernameAndPassword(usuarioDTO.getUsername(), usuarioDTO.getPassword());
@@ -28,7 +33,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Override
 	public Usuario registrar(Usuario obj) {
-		return dao.save(obj);
+		Usuario user = dao.save(obj);
+		userAccountDAO.saveAccount(LocalDateTime.now(), 1, user.getIdUsuario());
+		return user;
 	}
 
 	@Override
