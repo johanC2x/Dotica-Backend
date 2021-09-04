@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import com.devswpro.dto.AccessDTO;
@@ -138,6 +139,23 @@ public class UsuarioController {
 			throw new ModeloNotFoundException("ID NO ENCONTRADO: " + id);
 		} else {
 			accessService.eliminar(id);
+		}
+	}
+
+	@GetMapping(value = "/send/{email}", produces="application/json")
+	public void send(@PathVariable("email") String email) {
+	    usuarioService.sendEmail(email);
+    }
+
+    @PostMapping(value = "/reset", produces="application/json")
+	public ResponseEntity<UsuarioDTO> reset(@RequestBody UsuarioDTO usuarioDTO){
+		String pass = bcrypt.encode(usuarioDTO.getPassword());
+		usuarioDTO.setPassword(pass);
+		boolean valid = usuarioService.reset(usuarioDTO);
+		if(valid){
+			return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
+		}else{
+			return new ResponseEntity<>(usuarioDTO, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

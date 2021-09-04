@@ -11,6 +11,7 @@ import com.devswpro.model.IntTransaction;
 import com.devswpro.model.IntUserAccount;
 import com.devswpro.model.Usuario;
 import com.devswpro.service.IAccessService;
+import com.devswpro.util.MessageSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -81,4 +82,13 @@ public class AccessServiceImpl implements IAccessService {
         return Boolean.TRUE;
     }
 
+    @Override
+    public void sendMessage() {
+        try {
+            MessageSender messageSender = new MessageSender();
+            messageSender.sendMessages();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
 }

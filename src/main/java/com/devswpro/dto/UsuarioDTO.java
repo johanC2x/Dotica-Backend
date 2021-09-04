@@ -8,6 +8,8 @@ public class UsuarioDTO {
 	
 	private String password;
 
+	private String token;
+
 	public String getId() {
 		return id;
 	}
@@ -31,5 +33,12 @@ public class UsuarioDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 }
