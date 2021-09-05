@@ -24,6 +24,6 @@ public class IntUserAccount {
     @JoinColumn(name = "id_usuario", nullable = false, insertable = false, updatable = false)
     private Usuario user;
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "id_account", nullable = false, insertable = false, updatable = false)
     private IntAccountType account;
 }

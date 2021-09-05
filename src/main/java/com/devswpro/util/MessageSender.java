@@ -20,7 +20,7 @@ public class MessageSender {
 
     private static final boolean TRANSACTED_SESSION = true;
 
-    private static final int MESSAGES_TO_SEND = 20;
+    private static final int MESSAGES_TO_SEND = 1;
 
     public enum UserAction {
 
