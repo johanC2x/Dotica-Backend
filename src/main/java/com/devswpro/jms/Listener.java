@@ -3,7 +3,6 @@ package com.devswpro.jms;
 import com.devswpro.dao.ITransactionDAO;
 import com.devswpro.dao.IUserAccountDAO;
 import com.devswpro.model.IntTransaction;
-import com.devswpro.model.IntUserAccount;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,13 +31,6 @@ public class Listener {
             messageData = textMessage.getText();
             Map map = new Gson().fromJson(messageData, Map.class);
             String user = map.get("name").toString();
-
-            IntUserAccount userAccount = userAccountDAO.findByUser_UsernameAndState(user, Boolean.TRUE);
-            Long total = transactionDAO.countByUser(user);
-            if(total >= userAccount.getAccount().getMaxTransaction()){
-                return null;
-            }
-
             IntTransaction transaction = new IntTransaction();
             transaction.setUser(user);
             transaction.setCreatedDate(LocalDateTime.now());

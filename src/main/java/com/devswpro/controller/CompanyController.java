@@ -27,9 +27,12 @@ public class CompanyController {
 
     @GetMapping(value = "/{ruc}", produces = "application/json")
     public ResponseEntity<Object> findByRuc(@PathVariable("ruc") String ruc, @RequestHeader("user-access") String userAccess ,@RequestHeader("token-access") String token){
+        if(!accessService.validateMaxTransaction(userAccess)){
+            return new ResponseEntity<>(AccessMapper.mapError("Alcanzó el límite de consultas"), HttpStatus.UNAUTHORIZED);
+        }
         AccessDTO access = accessService.findByCreatedByAndToken(userAccess, token);
         if(Objects.isNull(access)){
-            return new ResponseEntity<>(AccessMapper.mapError("Usuario no encontrado o alcanzó el límite de consultas"), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(AccessMapper.mapError("Usuario no encontrado"), HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(companyService.findByRuc(ruc), HttpStatus.OK);
     }

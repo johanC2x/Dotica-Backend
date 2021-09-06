@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +35,16 @@ public class AccessServiceImpl implements IAccessService {
         List<IntAccess> list = dao.findByCreatedBy(user);
         return list.stream().map(AccessMapper::map)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean validateMaxTransaction(String user) {
+        IntUserAccount userAccount = userAccountDAO.findByUser_UsernameAndState(user, Boolean.TRUE);
+        Long total = transactionDAO.countByUser(user);
+        if(total >= userAccount.getAccount().getMaxTransaction()){
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
     }
 
     @Override
