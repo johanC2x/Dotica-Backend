@@ -1,5 +1,5 @@
 package com.devswpro.jms;
-
+/*
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +11,11 @@ import javax.jms.JMSException;
 import javax.jms.Session;
 import javax.jms.Message;
 import java.util.Map;
+*/
 
-@Slf4j
-@Component
 public class Producer {
 
+    /*
     @Autowired
     JmsTemplate jmsTemplate;
 
@@ -29,5 +29,6 @@ public class Producer {
             }
         });
     }
+    */
 
 }

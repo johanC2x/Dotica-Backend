@@ -5,18 +5,15 @@ import com.devswpro.dao.ITransactionDAO;
 import com.devswpro.dao.IUserAccountDAO;
 import com.devswpro.dao.IUsuarioDAO;
 import com.devswpro.dto.AccessDTO;
-import com.devswpro.dto.QueueDTO;
-import com.devswpro.jms.Producer;
 import com.devswpro.mapper.AccessMapper;
 import com.devswpro.model.IntAccess;
 import com.devswpro.model.IntTransaction;
 import com.devswpro.model.IntUserAccount;
-import com.devswpro.model.Usuario;
 import com.devswpro.service.IAccessService;
-import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +25,6 @@ public class AccessServiceImpl implements IAccessService {
     private final ITransactionDAO transactionDAO;
     private final IUsuarioDAO userDAO;
     private final IUserAccountDAO userAccountDAO;
-    private final Producer producer;
 
     @Override
     public List<AccessDTO> findByUser(String user) {
@@ -79,19 +75,14 @@ public class AccessServiceImpl implements IAccessService {
     }
 
     public void saveTransaction(String user){
+        /*
         final String json = new Gson().toJson(new QueueDTO(user, "1.1.1.1"));
         producer.sendMessage("TRANSACTION.QUEUE", json);
+        */
+        IntTransaction transaction = new IntTransaction();
+        transaction.setUser(user);
+        transaction.setCreatedDate(LocalDateTime.now());
+        transactionDAO.save(transaction);
     }
 
-    @Override
-    public void sendMessage() {
-        try {
-            QueueDTO queueDTO = new QueueDTO("johanc.cca@gmail.com", "1.1.1.1");
-            final Gson gson = new Gson();
-            final String json = gson.toJson(queueDTO);
-            producer.sendMessage("TRANSACTION.QUEUE", json);
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
 }

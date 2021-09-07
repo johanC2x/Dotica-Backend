@@ -1,13 +1,14 @@
 package com.devswpro.config;
-
+/*
 import org.apache.activemq.spring.ActiveMQConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
+*/
 
-@Configuration
 public class JmsConfig {
+    /*
     String BROKER_URL = "tcp://localhost:61616";
     String BROKER_USERNAME = "admin";
     String BROKER_PASSWORD = "admin";
@@ -35,4 +36,5 @@ public class JmsConfig {
         factory.setConcurrency("1-1");
         return factory;
     }
+    */
 }

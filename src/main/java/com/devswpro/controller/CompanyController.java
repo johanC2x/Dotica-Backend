@@ -51,9 +51,4 @@ public class CompanyController {
         return ResponseEntity.created(location).build();
     }
 
-    @PostMapping(value = "/send", produces = "application/json")
-    public void sendMessage(){
-        accessService.sendMessage();
-    }
-
 }

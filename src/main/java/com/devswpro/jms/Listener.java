@@ -1,5 +1,6 @@
 package com.devswpro.jms;
 
+/*
 import com.devswpro.dao.ITransactionDAO;
 import com.devswpro.dao.IUserAccountDAO;
 import com.devswpro.model.IntTransaction;
@@ -14,12 +15,10 @@ import javax.jms.Message;
 import javax.jms.TextMessage;
 import java.time.LocalDateTime;
 import java.util.Map;
+*/
 
-@Slf4j
-@Component
-@RequiredArgsConstructor
 public class Listener {
-
+    /*
     private final IUserAccountDAO userAccountDAO;
     private final ITransactionDAO transactionDAO;
 
@@ -40,5 +39,5 @@ public class Listener {
         }
         return null;
     }
-
+    */
 }
