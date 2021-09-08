@@ -5,13 +5,15 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
-import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import com.devswpro.dto.AccessDTO;
+import com.devswpro.exception.ExceptionResponse;
 import com.devswpro.model.IntAccess;
 import com.devswpro.service.impl.AccessServiceImpl;
 import org.apache.commons.logging.Log;
@@ -105,6 +107,10 @@ public class UsuarioController {
 	
 	@PostMapping(produces="application/json",consumes="application/json")
 	public ResponseEntity<Usuario> registrar(@Valid @RequestBody Usuario usuario) {
+		Usuario userValidate= usuarioService.leerPorUsuario(usuario.getUsername());
+		if(Objects.nonNull(userValidate)){
+			throw new ModeloNotFoundException("USUARIO INGRESADO ACTUALMENTE EXISTE");
+		}
 		String passw = bcrypt.encode(usuario.getPassword());
 		usuario.setPassword(passw);
 		Usuario user = usuarioService.registrar(usuario);
