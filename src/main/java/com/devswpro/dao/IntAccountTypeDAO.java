@@ -19,7 +19,7 @@ public interface IntAccountTypeDAO extends JpaRepository<IntAccountType, Integer
 
     @Query(value = "SELECT " +
             "T.id,T.account_key,T.account_type,T.max_transaction,T.description,T.amount,T.currency, " +
-            "(SELECT COUNT(*) FROM int_user_account ac, usuario u where ac.id_usuario = u.id_usuario and ac.id_account = T.id AND u.nombre_completo = :userName AND ac.state = 1) AS state " +
+            "(SELECT COUNT(*) FROM int_user_account ac, usuario u where ac.id_usuario = u.id_usuario and ac.id_account = T.id AND u.nombre = :userName AND ac.state = 1) AS state " +
             "FROM int_account_type T", nativeQuery = true)
     List<IntAccountType> getAll(@Param("userName")String userName);
 }
