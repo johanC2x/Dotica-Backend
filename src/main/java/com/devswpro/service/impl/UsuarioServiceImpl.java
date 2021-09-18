@@ -12,6 +12,9 @@ import com.devswpro.model.EmailReset;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 import com.devswpro.dao.IUsuarioDAO;
@@ -19,6 +22,9 @@ import com.devswpro.dto.UsuarioDTO;
 import com.devswpro.model.Usuario;
 import com.devswpro.service.IUsuarioService;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -36,6 +42,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Autowired
 	private IUserAccountDAO userAccountDAO;
+
+	@Autowired
+	private RestTemplate restTemplate;
 
 	@Value("${app.email.user}")
 	private String userEmail;
@@ -151,6 +160,31 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			log.error("El token ingresado está vencido o no existe");
 			return Boolean.FALSE;
 		}
+	}
+
+	@Override
+	public void send(String email) {
+		UUID uuid = UUID.randomUUID();
+
+		EmailReset emailReset=new EmailReset();
+		emailReset.setToken(uuid.toString());
+		emailReset.setEmail(email);
+		emailReset.setCreatedDate(LocalDateTime.now());
+		emailReset.setActive(Boolean.TRUE);
+		emailResetDAO.save(emailReset);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+		MultiValueMap<String, String> map= new LinkedMultiValueMap<>();
+		map.add("name", email);
+		map.add("email", email);
+		map.add("subject", "Cambio de contraseña");
+		map.add("message", "<p>Ha solicitado el cambio de contraseña, <b>haz click <a href='"+ appFrontUrl + uuid.toString() +"'>aquí</a></b></p>");
+
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
+
+		restTemplate.postForLocation("https://ysumma.com/correo/sendmail.php", request);
 	}
 
 }

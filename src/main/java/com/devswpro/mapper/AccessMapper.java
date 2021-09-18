@@ -2,6 +2,7 @@ package com.devswpro.mapper;
 
 import com.devswpro.dto.AccessDTO;
 import com.devswpro.dto.ErrorDTO;
+import com.devswpro.exception.ModeloNotFoundException;
 import com.devswpro.model.IntAccess;
 
 import java.util.Objects;
@@ -9,7 +10,7 @@ import java.util.Objects;
 public class AccessMapper {
     public static AccessDTO map(IntAccess access){
         if(Objects.isNull(access)){
-            return null;
+            throw new ModeloNotFoundException("Cuenta sin acceso");
         }
         return AccessDTO.builder()
                 .idAccess(access.getIdAccess())

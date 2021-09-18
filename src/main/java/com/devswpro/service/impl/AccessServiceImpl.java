@@ -5,6 +5,7 @@ import com.devswpro.dao.ITransactionDAO;
 import com.devswpro.dao.IUserAccountDAO;
 import com.devswpro.dao.IUsuarioDAO;
 import com.devswpro.dto.AccessDTO;
+import com.devswpro.exception.ModeloNotFoundException;
 import com.devswpro.mapper.AccessMapper;
 import com.devswpro.model.IntAccess;
 import com.devswpro.model.IntTransaction;
@@ -38,7 +39,7 @@ public class AccessServiceImpl implements IAccessService {
         IntUserAccount userAccount = userAccountDAO.findByUser_UsernameAndState(user, Boolean.TRUE);
         Long total = transactionDAO.countByUser(user);
         if(total >= userAccount.getAccount().getMaxTransaction()){
-            return Boolean.FALSE;
+            throw new ModeloNotFoundException("Sa alcanzó el límite de consultas");
         }
         return Boolean.TRUE;
     }

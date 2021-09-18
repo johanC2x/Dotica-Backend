@@ -150,7 +150,8 @@ public class UsuarioController {
 
 	@GetMapping(value = "/send/{email}", produces="application/json")
 	public void send(@PathVariable("email") String email) {
-	    usuarioService.sendEmail(email);
+		//usuarioService.sendEmail(email);
+		usuarioService.send(email);
     }
 
     @PostMapping(value = "/reset", produces="application/json")
