@@ -1,13 +1,11 @@
 package com.devswpro.service.impl;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.Properties;
-import java.util.UUID;
+import java.util.*;
 
 import com.devswpro.dao.IEmailResetDAO;
 import com.devswpro.dao.IUserAccountDAO;
+import com.devswpro.exception.ModeloNotFoundException;
 import com.devswpro.model.EmailReset;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -164,6 +162,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Override
 	public void send(String email) {
+		Usuario usuario = dao.findOneByUsername(email);
+		if(Objects.isNull(usuario)){
+			throw new ModeloNotFoundException("El correo ingresado no existe");
+		}
+
 		UUID uuid = UUID.randomUUID();
 
 		EmailReset emailReset=new EmailReset();
