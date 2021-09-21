@@ -23,6 +23,11 @@ public class CompanyServiceImpl implements ICompanyService {
                 .name(company.getName())
                 .residenceStatus(company.getResidenceCondition())
                 .status(company.getTaxpayerStatus())
+                .location(company.getLocation())
+                .roadType(company.getRoadType())
+                .streetName(company.getStreetName())
+                .zoneCode(company.getZoneCode())
+                .zoneType(company.getZoneType())
                 .build();
     }
 

@@ -12,4 +12,9 @@ public class CompanyDTO {
     private String name;
     private String status;
     private String residenceStatus;
+    private String location;
+    private String roadType;
+    private String streetName;
+    private String zoneCode;
+    private String zoneType;
 }
